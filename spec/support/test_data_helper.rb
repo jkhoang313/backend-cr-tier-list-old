@@ -1,0 +1,29 @@
+module TestDataHelper
+  def create_tournament_lists
+    [TierList.create(
+      name: "Test Tournament Tier List",
+      list_type: 1,
+      description: "first tournament tier list"
+    ),
+    TierList.create(
+      name: "Test Tournament Tier List 2",
+      list_type: 1,
+      description: "second tournament tier list"
+    )]
+  end
+
+  def create_ladder_lists
+    [TierList.create(
+      name: "Test ladder Tier List",
+      list_type: 2,
+      description: "first ladder tier list",
+      upvotes: 10
+    ),
+    TierList.create(
+      name: "Test ladder Tier List 2",
+      list_type: 2,
+      description: "second ladder tier list",
+      upvotes: 5
+    )]
+  end
+end

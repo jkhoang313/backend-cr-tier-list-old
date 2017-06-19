@@ -5,6 +5,7 @@ class CreateTierLists < ActiveRecord::Migration[5.0]
       t.string :name
       t.integer :list_type
       t.text :description
+      t.integer :upvotes, default: 0
 
       t.timestamps
     end

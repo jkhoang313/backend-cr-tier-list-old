@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(version: 20170618170829) do
     t.string   "name"
     t.integer  "list_type"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "upvotes",     default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "tiers", force: :cascade do |t|

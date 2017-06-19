@@ -1,3 +1,3 @@
 class TierListSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :name, :list_type, :description, :upvotes
 end
