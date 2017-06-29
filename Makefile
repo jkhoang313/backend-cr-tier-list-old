@@ -1,5 +1,5 @@
-test:
-	rake db:drop
-	rake db:create
-	rake db:migrate
-	rake db:seed
+reset_seed:
+	rake db:drop RAILS_ENV=test
+	rake db:create RAILS_ENV=test
+	rake db:migrate RAILS_ENV=test
+	rake db:seed RAILS_ENV=test
