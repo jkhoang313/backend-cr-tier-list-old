@@ -27,6 +27,14 @@ class TierListsController < ApplicationController
       tier_list.change_upvotes(params["update_upvotes"].to_i)
     end
 
+    if params.include? "update_card_position"
+      card_name = params["update_card_position"]["card_name"]
+      new_tier = params["update_card_position"]["tier_index"].to_i
+      new_position = params["update_card_position"]["position"].to_i
+
+      tier_list.update_card_position(card_name, new_tier, new_position)
+    end
+
     render json: tier_list
   end
 

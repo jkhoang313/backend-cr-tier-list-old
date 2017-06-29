@@ -16,14 +16,12 @@ TierList.create(
   upvotes: 0,
   tier_positions: [
     {
-      id: 1,
       title: "S-tier",
       description: "The best cards in the game",
       notes: "Bomber just reached S tier!",
       cards: ["Bomber", "Bowler", "Bomb Tower"]
     },
     {
-      id: 23,
       title: "A-tier",
       description: "The second best cards in the game",
       notes: "Barbarian Hut might move up soon",
