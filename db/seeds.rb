@@ -31,3 +31,27 @@ TierList.create(
     }
   ]
 )
+
+TierList.create(
+  user_id: clyde.id,
+  name: "Clyde's Ladder Tier List",
+  list_type: 2,
+  description: "Tier list for high trophy ladder play! (5000+)",
+  upvotes: 0,
+  tier_positions: [
+    {
+      id: 1,
+      title: "S-tier",
+      description: "Good cards as long as you have the levels for it",
+      notes: "Miner reigns supreme",
+      cards: ["Lava Hound", "Miner", "The Log"]
+    },
+    {
+      id: 23,
+      title: "A-tier",
+      description: "Still good even if underleveled",
+      notes: "Tank heavy meta",
+      cards: ["Golem", "Giant"]
+    }
+  ]
+)
