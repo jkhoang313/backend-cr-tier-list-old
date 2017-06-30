@@ -47,6 +47,6 @@ class TierListsController < ApplicationController
 
   private
   def tier_list_params
-    params.permit(:name, :list_type, :description)
+    params.permit(:user_id, :name, :list_type, :description)
   end
 end

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Tier List API", :type => :request do
   include TestDataHelper
+  let!(:user) { create_user }
   let!(:tournament_tier_lists) { create_tournament_lists }
   let!(:ladder_tier_lists) { create_ladder_lists }
 
@@ -63,6 +64,7 @@ RSpec.describe "Tier List API", :type => :request do
 
   describe 'POST /api/tier_lists' do
     let!(:params) {{
+      "user_id" => user.id,
       "name" => "newly created tier list",
       "list_type" => 1,
       "description" => "new description"
@@ -85,16 +87,14 @@ RSpec.describe "Tier List API", :type => :request do
     end
   end
 
-  describe 'PUT /api/tier_lists' do
+  describe 'PUT /api/tier_lists/:id' do
     let!(:params) {{
-      "id" => tournament_tier_lists[0].id,
       "name" => "updated name",
       "list_type" => 3,
       "description" => "updated description",
       "update_upvotes" => 1
     }}
     let!(:params_downvote) {{
-      "id" => tournament_tier_lists[0].id,
       "update_upvotes" => -2
     }}
 
@@ -121,6 +121,15 @@ RSpec.describe "Tier List API", :type => :request do
     end
 
     it 'can downvote a tier list' do
+      put("/api/tier_lists/#{tournament_tier_lists[0].id}", params: params_downvote)
+      body = JSON.parse(response.body)
+
+      expect(body["tier_list"]["upvotes"]).to eq(tournament_tier_lists[0].upvotes + params_downvote["update_upvotes"])
+
+      expect(body["tier_list"]["upvotes"]).to eq(tournament_tier_lists[0].reload.upvotes)
+    end
+
+    it 'can add a card to a tier' do
       put("/api/tier_lists/#{tournament_tier_lists[0].id}", params: params_downvote)
       body = JSON.parse(response.body)
 
