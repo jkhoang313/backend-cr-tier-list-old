@@ -254,6 +254,25 @@ RSpec.describe "Tier List API", :type => :request do
         expect(tournament_lists[0].reload.tier_positions[0]["cards"][1]).to eq("Lava Hound")
       end
     end
+
+    it 'can a card between tiers' do
+      expect(tournament_lists[0].tier_positions[0]["cards"]).to include("Lava Hound")
+      expect(tournament_lists[0].tier_positions[1]["cards"]).not_to include("Lava Hound")
+
+      put("/api/tier_lists/#{tournament_lists[0].id}", params: {
+        "update_card_position" => {
+          "card_name" => "Lava Hound",
+          "tier_index" => 1,
+          "position" => 1
+        }
+      })
+
+      body = JSON.parse(response.body)
+
+      expect(tournament_lists[0].reload.tier_positions[0]["cards"]).not_to include("Lava Hound")
+      expect(tournament_lists[0].reload.tier_positions[1]["cards"]).to include("Lava Hound")
+      expect(tournament_lists[0].reload.tier_positions[1]["cards"][1]).to eq("Lava Hound")
+    end
   end
 
   describe 'DELETE /api/tier_lists/:id' do
