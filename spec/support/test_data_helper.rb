@@ -8,7 +8,17 @@ module TestDataHelper
       user_id: User.first.id,
       name: "Test Tournament Tier List",
       list_type: 1,
-      description: "first tournament tier list"
+      description: "first tournament tier list",
+      tier_positions: [
+        {
+          title: "test tier",
+          cards: ["Lava Hound", "Baby Dragon", "Musketeer"]
+        },
+        {
+          title: "test tier 2",
+          cards: ["Three Musketeers", "Bandit"]
+        }
+      ]
     ),
     TierList.create(
       user_id: User.first.id,

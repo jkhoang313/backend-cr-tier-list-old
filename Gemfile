@@ -41,6 +41,9 @@ gem 'active_model_serializers', '0.9.3'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
+# To remove error 'Expect string default value for --serializer'
+gem 'thor', '0.19.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

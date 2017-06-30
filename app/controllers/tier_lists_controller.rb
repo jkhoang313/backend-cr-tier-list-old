@@ -35,6 +35,12 @@ class TierListsController < ApplicationController
       tier_list.update_card_position(card_name, new_tier, new_position)
     end
 
+    if params.include? "remove_card"
+      card_name = params["remove_card"]["card_name"]
+
+      tier_list.remove_card_from_tiers(card_name)
+    end
+
     render json: tier_list
   end
 
