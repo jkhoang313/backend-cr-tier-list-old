@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20170618170825) do
 
   create_table "tier_lists", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "name"
+    t.string   "title"
     t.integer  "list_type"
     t.text     "description"
     t.integer  "upvotes",        default: 0

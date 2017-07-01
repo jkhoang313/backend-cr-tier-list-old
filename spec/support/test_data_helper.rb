@@ -6,7 +6,7 @@ module TestDataHelper
   def create_tournament_lists
     [TierList.create(
       user_id: User.first.id,
-      name: "Test Tournament Tier List",
+      title: "Test Tournament Tier List",
       list_type: 1,
       description: "first tournament tier list",
       tier_positions: [
@@ -22,7 +22,7 @@ module TestDataHelper
     ),
     TierList.create(
       user_id: User.first.id,
-      name: "Test Tournament Tier List 2",
+      title: "Test Tournament Tier List 2",
       list_type: 1,
       description: "second tournament tier list"
     )]
@@ -31,14 +31,14 @@ module TestDataHelper
   def create_ladder_lists
     [TierList.create(
       user_id: User.first.id,
-      name: "Test ladder Tier List",
+      title: "Test ladder Tier List",
       list_type: 2,
       description: "first ladder tier list",
       upvotes: 10
     ),
     TierList.create(
     user_id: User.first.id,
-      name: "Test ladder Tier List 2",
+      title: "Test ladder Tier List 2",
       list_type: 2,
       description: "second ladder tier list",
       upvotes: 5
