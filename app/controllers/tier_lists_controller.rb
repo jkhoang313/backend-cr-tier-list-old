@@ -23,8 +23,14 @@ class TierListsController < ApplicationController
     tier_list = TierList.find(params["id"])
     tier_list.update(tier_list_params)
 
-    if params.include? "update_upvotes"
-      tier_list.change_upvotes(params["update_upvotes"].to_i)
+    # if params.include? "update_upvotes"
+    #   tier_list.change_upvotes(params["update_upvotes"].to_i)
+    # end
+
+    if params.include? "update_tier_details"
+      tier_list.update(tier_list_params)
+
+      tier_list.update_tier_details(params["update_tier_details"])
     end
 
     if params.include? "update_card_position"
@@ -53,6 +59,6 @@ class TierListsController < ApplicationController
 
   private
   def tier_list_params
-    params.permit(:user_id, :title, :list_type, :description)
+    params.require(:update_tier_details).permit(:user_id, :title, :list_type, :description)
   end
 end

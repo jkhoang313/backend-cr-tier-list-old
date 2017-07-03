@@ -26,4 +26,21 @@ class TierList < ApplicationRecord
     self.tier_positions[tier_index] = tier_to_add
     self.save
   end
+
+  def update_tier_details(update_params)
+    updated_tier_positions = self.tier_positions
+
+    update_params.each do |key, value|
+      if key.starts_with?("tier")
+        index = key.split('-').last.to_i
+        tier_to_change = updated_tier_positions[index]
+        changes = update_params[key]
+        tier_to_change["name"] = changes["name"]
+        tier_to_change["description"] = changes["description"]
+        updated_tier_positions[index] = tier_to_change
+      end
+    end
+    
+    self.update(tier_positions: updated_tier_positions)
+  end
 end
