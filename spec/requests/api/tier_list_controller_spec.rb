@@ -89,13 +89,11 @@ RSpec.describe "Tier List API", :type => :request do
 
   describe 'PUT /api/tier_lists/:id' do
     let!(:params) {{
-      "title" => "updated title",
-      "list_type" => 3,
-      "description" => "updated description",
-      "update_upvotes" => 1
-    }}
-    let!(:params_downvote) {{
-      "update_upvotes" => -2
+      "update_tier_details" => {
+        "title" => "updated title",
+        "list_type" => 3,
+        "description" => "updated description"
+      }
     }}
 
     it 'can update a tier list\'s name and description' do
@@ -104,27 +102,27 @@ RSpec.describe "Tier List API", :type => :request do
 
       updated_tier_list = tournament_lists[0].reload
 
-      expect(body["tier_list"]["title"]).to eq(params["title"])
-      expect(body["tier_list"]["description"]).to eq(params["description"])
+      expect(body["tier_list"]["title"]).to eq(params["update_tier_details"]["title"])
+      expect(body["tier_list"]["description"]).to eq(params["update_tier_details"]["description"])
 
-      expect(updated_tier_list.title).to eq(params["title"])
-      expect(updated_tier_list.description).to eq(params["description"])
+      expect(updated_tier_list.title).to eq(params["update_tier_details"]["title"])
+      expect(updated_tier_list.description).to eq(params["update_tier_details"]["description"])
     end
 
     it 'can upvote a tier list' do
-      put("/api/tier_lists/#{tournament_lists[0].id}", params: params)
+      put("/api/tier_lists/#{tournament_lists[0].id}", params: { "update_upvotes" => 1 })
       body = JSON.parse(response.body)
 
-      expect(body["tier_list"]["upvotes"]).to eq(tournament_lists[0].upvotes + params["update_upvotes"])
+      expect(body["tier_list"]["upvotes"]).to eq(tournament_lists[0].upvotes + 1)
 
       expect(body["tier_list"]["upvotes"]).to eq(tournament_lists[0].reload.upvotes)
     end
 
     it 'can downvote a tier list' do
-      put("/api/tier_lists/#{tournament_lists[0].id}", params: params_downvote)
+      put("/api/tier_lists/#{tournament_lists[0].id}", params: { "update_upvotes" => -2 })
       body = JSON.parse(response.body)
 
-      expect(body["tier_list"]["upvotes"]).to eq(tournament_lists[0].upvotes + params_downvote["update_upvotes"])
+      expect(body["tier_list"]["upvotes"]).to eq(tournament_lists[0].upvotes - 2)
 
       expect(body["tier_list"]["upvotes"]).to eq(tournament_lists[0].reload.upvotes)
     end

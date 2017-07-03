@@ -14,21 +14,20 @@ class TierListsController < ApplicationController
   end
 
   def create
-    new_tier_list = TierList.create(tier_list_params)
+    new_tier_list = TierList.create(tier_list_creation_params)
 
     render json: new_tier_list
   end
 
   def update
     tier_list = TierList.find(params["id"])
-    tier_list.update(tier_list_params)
 
-    # if params.include? "update_upvotes"
-    #   tier_list.change_upvotes(params["update_upvotes"].to_i)
-    # end
+    if params.include? "update_upvotes"
+      tier_list.change_upvotes(params["update_upvotes"].to_i)
+    end
 
     if params.include? "update_tier_details"
-      tier_list.update(tier_list_params)
+      tier_list.update(tier_list_update_params)
 
       tier_list.update_tier_details(params["update_tier_details"])
     end
@@ -58,7 +57,11 @@ class TierListsController < ApplicationController
   end
 
   private
-  def tier_list_params
+  def tier_list_creation_params
+    params.permit(:user_id, :title, :list_type, :description)
+  end
+
+  def tier_list_update_params
     params.require(:update_tier_details).permit(:user_id, :title, :list_type, :description)
   end
 end
