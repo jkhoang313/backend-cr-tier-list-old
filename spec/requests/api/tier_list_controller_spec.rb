@@ -109,6 +109,24 @@ RSpec.describe "Tier List API", :type => :request do
       expect(updated_tier_list.description).to eq(params["update_tier_details"]["description"])
     end
 
+    it 'can add a new tier' do
+      expect(tournament_lists[1].tier_positions.length).to eq(0)
+
+      put("/api/tier_lists/#{tournament_lists[1].id}", params: {
+        "update_tier_details" => {
+          "tier-0" => {
+            "name" => "added tier",
+            "description" => "added description"
+          }
+        }
+      })
+      body = JSON.parse(response.body)
+
+      expect(tournament_lists[1].reload.tier_positions.length).to eq(1)
+      expect(tournament_lists[1].reload.tier_positions.first["name"]).to eq("added tier")
+      expect(tournament_lists[1].reload.tier_positions.first["description"]).to eq("added description")
+    end
+
     it 'can upvote a tier list' do
       put("/api/tier_lists/#{tournament_lists[0].id}", params: { "update_upvotes" => 1 })
       body = JSON.parse(response.body)
@@ -125,9 +143,6 @@ RSpec.describe "Tier List API", :type => :request do
       expect(body["tier_list"]["upvotes"]).to eq(tournament_lists[0].upvotes - 2)
 
       expect(body["tier_list"]["upvotes"]).to eq(tournament_lists[0].reload.upvotes)
-    end
-
-    it 'can add a new tier' do
     end
 
     it 'can remove a card from a tier' do
