@@ -2,9 +2,9 @@ class TierListsController < ApplicationController
   def index
     list_type = params["list_type"]
 
-    tier_lists = TierList.where(list_type: list_type).order(upvotes: :DESC)
+    tier_lists = TierList.where(list_type: list_type.to_i).order(upvotes: :DESC)
 
-    render json: { tier_lists: tier_lists.map {|tier_list| tier_list} }
+    render json: { tier_lists: tier_lists.map {|tier_list| TierListSerializer.new(tier_list)} }, root: false
   end
 
   def show
