@@ -1,4 +1,4 @@
-clyde = User.create(user_name: "Clyde", email: "clyde@crapp.com")
+clyde = User.create(user_name: "Clyde", email: "clyde@crapp.com", password: "123456", password_confirmation: "123456")
 
 TierList.create(
   user_id: clyde.id,
@@ -44,12 +44,12 @@ TierList.create(
   ]
 )
 
-bonnie = User.create(user_name: "Bonnie", email: "bonnie@crapp.com")
-tc = User.create(user_name: "Trainer Chris", email: "tc@crapp.com")
-cmchugh = User.create(user_name: "CMcHugh", email: "cmchugh@crapp.com")
-woody = User.create(user_name: "Woody", email: "woody@crapp.com")
-perseus = User.create(user_name: "Perseus", email: "perseus@crapp.com")
-intel = User.create(user_name: "Intel", email: "intel@crapp.com")
+bonnie = User.create(user_name: "Bonnie", email: "bonnie@crapp.com", password: "123456", password_confirmation: "123456")
+tc = User.create(user_name: "Trainer Chris", email: "tc@crapp.com", password: "123456", password_confirmation: "123456")
+cmchugh = User.create(user_name: "CMcHugh", email: "cmchugh@crapp.com", password: "123456", password_confirmation: "123456")
+woody = User.create(user_name: "Woody", email: "woody@crapp.com", password: "123456", password_confirmation: "123456")
+perseus = User.create(user_name: "Perseus", email: "perseus@crapp.com", password: "123456", password_confirmation: "123456")
+intel = User.create(user_name: "Intel", email: "intel@crapp.com", password: "123456", password_confirmation: "123456")
 
 TierList.create(
   user_id: bonnie.id,

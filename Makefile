@@ -1,10 +1,3 @@
-server:
-	rake db:drop RAILS_ENV=test
-	rake db:create RAILS_ENV=test
-	rake db:migrate RAILS_ENV=test
-	rake db:seed RAILS_ENV=test
-	rails s -e test
-
 test:
 	@echo "Dropping backend-tier-list_test..."; \
 	dropdb backend-tier-list_test --if-exists
