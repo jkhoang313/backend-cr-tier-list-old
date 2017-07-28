@@ -1,6 +1,6 @@
 module TestDataHelper
   def create_user
-    User.create(user_name: "Clyde", email: "clyde@crapp.com")
+    User.create(user_name: "Clyde", email: "clyde@crapp.com", password: "test", password_confirmation: "test")
   end
 
   def create_tournament_lists
