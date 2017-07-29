@@ -10,13 +10,13 @@ class TierListsController < ApplicationController
   def show
     tier_list = TierList.find(params["id"])
 
-    render json: tier_list
+    render json: TierListSerializer.new(tier_list), root: "tier_list"
   end
 
   def create
     new_tier_list = TierList.create(tier_list_creation_params)
 
-    render json: new_tier_list
+    render json: TierListSerializer.new(new_tier_list), root: "tier_list"
   end
 
   def update
@@ -46,7 +46,7 @@ class TierListsController < ApplicationController
       tier_list.remove_card_from_tiers(card_name)
     end
 
-    render json: tier_list
+    render json: TierListSerializer.new(tier_list), root: "tier_list"
   end
 
   def destroy
