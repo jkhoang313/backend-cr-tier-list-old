@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170618170825) do
+ActiveRecord::Schema.define(version: 20170812152024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "tier_list_id"
+    t.integer  "parent_comment_id"
+    t.integer  "user_id"
+    t.integer  "upvotes",           default: 0
+    t.text     "message"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["parent_comment_id"], name: "index_comments_on_parent_comment_id", using: :btree
+    t.index ["tier_list_id"], name: "index_comments_on_tier_list_id", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
+  end
 
   create_table "tier_lists", force: :cascade do |t|
     t.integer  "user_id"

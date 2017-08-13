@@ -49,6 +49,45 @@ CREATE TABLE ar_internal_metadata (
 ALTER TABLE ar_internal_metadata OWNER TO jacksonhoang;
 
 --
+-- Name: comments; Type: TABLE; Schema: public; Owner: jacksonhoang
+--
+
+CREATE TABLE comments (
+    id integer NOT NULL,
+    tier_list_id integer,
+    parent_comment_id integer,
+    user_id integer,
+    upvotes integer DEFAULT 0,
+    message text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE comments OWNER TO jacksonhoang;
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: jacksonhoang
+--
+
+CREATE SEQUENCE comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE comments_id_seq OWNER TO jacksonhoang;
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: jacksonhoang
+--
+
+ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: jacksonhoang
 --
 
@@ -139,6 +178,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
+-- Name: comments id; Type: DEFAULT; Schema: public; Owner: jacksonhoang
+--
+
+ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
+
+
+--
 -- Name: tier_lists id; Type: DEFAULT; Schema: public; Owner: jacksonhoang
 --
 
@@ -162,12 +208,31 @@ environment	test	2017-07-31 23:29:09.718841	2017-07-31 23:29:09.718841
 
 
 --
+-- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: jacksonhoang
+--
+
+COPY comments (id, tier_list_id, parent_comment_id, user_id, upvotes, message, created_at, updated_at) FROM stdin;
+1	1	\N	1	0	First Comment	2017-08-12 11:58:09.32394	2017-08-12 11:58:09.32394
+2	\N	1	2	0	Second Comment	2017-08-12 11:58:12.068838	2017-08-12 11:58:12.068838
+3	1	\N	2	10	Another comment	2017-08-13 13:05:06.398213	2017-08-13 13:05:06.398213
+\.
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: jacksonhoang
+--
+
+SELECT pg_catalog.setval('comments_id_seq', 3, true);
+
+
+--
 -- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: jacksonhoang
 --
 
 COPY schema_migrations (version) FROM stdin;
 20170618170813
 20170618170825
+20170812152024
 \.
 
 
@@ -269,6 +334,14 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: jacksonhoang
+--
+
+ALTER TABLE ONLY comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: jacksonhoang
 --
 
@@ -290,6 +363,27 @@ ALTER TABLE ONLY tier_lists
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_comments_on_parent_comment_id; Type: INDEX; Schema: public; Owner: jacksonhoang
+--
+
+CREATE INDEX index_comments_on_parent_comment_id ON comments USING btree (parent_comment_id);
+
+
+--
+-- Name: index_comments_on_tier_list_id; Type: INDEX; Schema: public; Owner: jacksonhoang
+--
+
+CREATE INDEX index_comments_on_tier_list_id ON comments USING btree (tier_list_id);
+
+
+--
+-- Name: index_comments_on_user_id; Type: INDEX; Schema: public; Owner: jacksonhoang
+--
+
+CREATE INDEX index_comments_on_user_id ON comments USING btree (user_id);
 
 
 --

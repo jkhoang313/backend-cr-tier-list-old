@@ -7,6 +7,7 @@ class CreateTierLists < ActiveRecord::Migration[5.0]
       t.text :description
       t.integer :upvotes, default: 0
       t.jsonb :tier_positions, default: []
+      
       t.timestamps
     end
   end
